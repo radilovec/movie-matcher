@@ -1,0 +1,9 @@
+.genre {
+  background-color: #565656;
+  border-radius: 14px;
+  padding: 6px 8px;
+
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,21 @@
+.list {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  overflow-x: auto;
+  width: calc(100% - 70px);
+  user-select: none;
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #565656;
+    border-radius: 4px;
+  }
+}
