@@ -8,6 +8,7 @@ lerna-debug.log*
 debug.log
 .out/
 .cache/
+.env
 
 # Node.js (React)  
 node_modules/
