@@ -46,15 +46,6 @@ db.sqlite3-journal
 *.sln
 *.sw?
 
-# Docker  
-.dockerignore
-docker-compose.override.yml
-docker-compose.prod.yml
-docker-compose.dev.yml
-docker-entrypoint.sh
-docker/data/
-docker/logs/
-
 # CI/CD  
 .github/
 .circleci/
