@@ -25,12 +25,11 @@ func ConnectDB() *mongo.Database {
 		panic(err)
 	}
 
-	defer func() {
-		if err := client.Disconnect(context.TODO()); err != nil {
-			logger.LogError(err.Error())
-			panic(err)
-		}
-	}()
+	err = client.Ping(context.TODO(), nil)
+	if err != nil {
+		logger.LogError(err.Error())
+		panic(err)
+	}
 
 	logger.LogInfo("Connected successfully")
 	return client.Database(cfg.DBName)

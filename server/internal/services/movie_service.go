@@ -7,8 +7,6 @@ import (
 	"server/config"
 	"server/internal/models"
 	"server/logger"
-	"sync"
-	"time"
 )
 
 func FetchMovies(category models.MovieCollectionType, page int) ([]models.Movie, error) {
@@ -18,7 +16,7 @@ func FetchMovies(category models.MovieCollectionType, page int) ([]models.Movie,
 	}
 
 	tmdbCfg := config.GetTmdbConfig()
-	url := fmt.Sprintf("https://api.themoviedb.org/3/movie/%s?page=%d&api_key=%s", category, page, tmdbCfg.ApiKey)
+	url := fmt.Sprintf("https://api.themoviedb.org/3/movie/%s?page=%d&api_key=%s", string(category), page, tmdbCfg.ApiKey)
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -34,29 +32,4 @@ func FetchMovies(category models.MovieCollectionType, page int) ([]models.Movie,
 
 	logger.LogInfo(string(category) + " movies fetched successfully")
 	return data.Results, nil
-}
-
-func FetchAllMovies(category models.MovieCollectionType, movieChan chan<- []models.Movie) {
-	var wg sync.WaitGroup
-
-	for page := 1; page <= 5; page++ {
-		wg.Add(1)
-
-		go func(page int) {
-			defer wg.Done()
-			movies, err := FetchMovies(category, page)
-
-			if err != nil || movies == nil {
-				logger.LogError(err.Error())
-				return
-			}
-			time.Sleep(300 * time.Millisecond)
-
-			movieChan <- movies
-		}(page)
-
-	}
-
-	wg.Wait()
-	close(movieChan)
 }

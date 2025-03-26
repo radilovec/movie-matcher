@@ -17,23 +17,25 @@ func main() {
 	db := database.ConnectDB()
 	categories := []models.MovieCollectionType{models.NowPlaying, models.Popular, models.TopRated, models.Upcoming}
 
-	movieChans := make(map[models.MovieCollectionType]chan []models.Movie)
-
-	for _, category := range categories {
-		movieChans[category] = make(chan []models.Movie, 100)
-	}
-
 	var wg sync.WaitGroup
 	for _, category := range categories {
 		wg.Add(1)
 		go func(category models.MovieCollectionType) {
 			defer wg.Done()
-			services.FetchAllMovies(category, movieChans[category])
-			repository.SaveMovies(db, category, <-movieChans[category])
+			for page := 1; page <= 20; page++ {
+				movies, err := services.FetchMovies(category, page)
+
+				if err != nil {
+					logger.LogError(err.Error())
+					panic(err)
+				}
+
+				repository.SaveMovies(db, category, movies)
+			}
 		}(category)
 	}
 
 	wg.Wait()
-	logger.LogInfo("фильмы загружены и записаны в монгу")
+	logger.LogInfo("all the movies have been fetched and uploaded")
 
 }

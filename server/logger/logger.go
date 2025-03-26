@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"runtime"
 )
 
 var Log *log.Logger
@@ -18,14 +19,22 @@ func InitLogger() {
 	Log = log.New(file, "APP_LOG: ", log.Ldate|log.Ltime|log.Lshortfile)
 }
 
+func getCallerInfo() string {
+	_, file, line, ok := runtime.Caller(2)
+	if !ok {
+		return "unknown file:unknown line"
+	}
+	return fmt.Sprintf("%s:%d", file, line)
+}
+
 func LogInfo(message string) {
-	Log.Println("INFO: " + message)
+	Log.Println("INFO:", getCallerInfo(), message)
 }
 
 func LogError(message string) {
-	Log.Println("ERROR: " + message)
+	Log.Println("ERROR:", getCallerInfo(), message)
 }
 
 func LogFatal(message string) {
-	Log.Fatalln("FATAL: " + message)
+	Log.Fatalln("FATAL:", getCallerInfo(), message)
 }
