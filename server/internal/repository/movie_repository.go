@@ -16,11 +16,10 @@ func SaveMovies(db *mongo.Database, category models.MovieCollectionType, movies 
 	for _, movie := range movies {
 		filter := bson.M{"_id": movie.ID}
 		update := bson.M{"$set": movie}
-		opts := options.UpdateOne().SetUpsert(true) // Вставит, если нет
-
+		opts := options.UpdateOne().SetUpsert(true)
 		_, err := coll.UpdateOne(context.Background(), filter, update, opts)
 		if err != nil {
-			logger.LogError("Failed to save movie [" + movie.Title + "]: " + err.Error())
+			logger.LogError(err.Error())
 			return err
 		}
 
@@ -28,4 +27,26 @@ func SaveMovies(db *mongo.Database, category models.MovieCollectionType, movies 
 
 	logger.LogInfo(string(category) + " movies uploaded in MongoDB")
 	return nil
+}
+
+func GetMoviesByColl(db *mongo.Database, category models.MovieCollectionType) ([]models.Movie, error) {
+	coll := db.Collection(string(category))
+
+	cursor, err := coll.Find(context.Background(), bson.D{})
+
+	if err != nil {
+		logger.LogError(err.Error())
+		return nil, err
+	}
+	defer cursor.Close(context.Background())
+
+	movies := make([]models.Movie, 0)
+
+	if err = cursor.All(context.Background(), &movies); err != nil {
+		logger.LogError(err.Error())
+		return nil, err
+	}
+
+	logger.LogInfo("Retrieved " + string(len(movies)) + " movies from collection [" + string(category) + "]")
+	return movies, nil
 }

@@ -7,6 +7,7 @@ const (
 	TopRated   MovieCollectionType = "top_rated"
 	NowPlaying MovieCollectionType = "now_playing"
 	Popular    MovieCollectionType = "popular"
+	Unique     MovieCollectionType = "unique"
 )
 
 func (m MovieCollectionType) IsValid() bool {
