@@ -33,7 +33,3 @@ func FetchMovies(category models.MovieCollectionType, page int) ([]models.Movie,
 	logger.LogInfo(string(category) + " movies fetched successfully")
 	return data.Results, nil
 }
-
-// func CreateUniqueColl() []models.Movie {
-
-// }
