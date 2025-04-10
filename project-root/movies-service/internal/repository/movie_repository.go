@@ -25,7 +25,6 @@ func SaveMovies(db *mongo.Database, category models.MovieCollectionType, movies 
 
 	}
 
-	logger.LogInfo(string(category) + " movies uploaded in MongoDB")
 	return nil
 }
 
@@ -47,6 +46,5 @@ func GetMoviesByColl(db *mongo.Database, category models.MovieCollectionType) ([
 		return nil, err
 	}
 
-	logger.LogInfo("Retrieved " + string(len(movies)) + " movies from collection [" + string(category) + "]")
 	return movies, nil
 }

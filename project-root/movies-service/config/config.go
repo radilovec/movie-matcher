@@ -19,8 +19,7 @@ type TmdbConfig struct {
 }
 
 type FetchConfig struct {
-	TotalPages int
-	Interval   int
+	Interval int
 }
 
 func InitConfig() {
@@ -47,10 +46,6 @@ func GetDBConfig() DBConfig {
 }
 
 func GetFetchConfig() FetchConfig {
-	totalPages, err := strconv.Atoi(os.Getenv("TOTAL_PAGES"))
-	if err != nil {
-		totalPages = 20
-	}
 
 	interval, err := strconv.Atoi(os.Getenv("INTERVAL"))
 	if err != nil {
@@ -58,7 +53,6 @@ func GetFetchConfig() FetchConfig {
 	}
 
 	return FetchConfig{
-		TotalPages: totalPages,
-		Interval:   interval,
+		Interval: interval,
 	}
 }
