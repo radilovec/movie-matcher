@@ -2,8 +2,8 @@ package database
 
 import (
 	"context"
-	"movies-service/config"
-	"movies-service/pkg/logger"
+	"fetch-and-store/config"
+	"fetch-and-store/pkg/logger"
 
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"go.mongodb.org/mongo-driver/v2/mongo/options"

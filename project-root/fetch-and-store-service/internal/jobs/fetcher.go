@@ -1,10 +1,10 @@
 package jobs
 
 import (
-	"movies-service/internal/domain/models"
-	"movies-service/internal/repository"
-	"movies-service/internal/services"
-	"movies-service/pkg/logger"
+	"fetch-and-store/internal/domain/models"
+	"fetch-and-store/internal/repository"
+	"fetch-and-store/internal/services"
+	"fetch-and-store/pkg/logger"
 	"strconv"
 	"sync"
 	"time"

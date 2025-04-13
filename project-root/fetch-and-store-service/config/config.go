@@ -1,7 +1,7 @@
 package config
 
 import (
-	"movies-service/pkg/logger"
+	"fetch-and-store/pkg/logger"
 	"os"
 	"strconv"
 

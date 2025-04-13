@@ -1,10 +1,10 @@
 package main
 
 import (
-	"movies-service/config"
-	"movies-service/internal/jobs"
-	"movies-service/pkg/database"
-	"movies-service/pkg/logger"
+	"fetch-and-store/config"
+	"fetch-and-store/internal/jobs"
+	"fetch-and-store/pkg/database"
+	"fetch-and-store/pkg/logger"
 	"time"
 )
 

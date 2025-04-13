@@ -2,9 +2,10 @@ package services
 
 import (
 	"encoding/json"
+	"fetch-and-store/config"
+	"fetch-and-store/internal/domain/models"
+
 	"fmt"
-	"movies-service/config"
-	"movies-service/internal/domain/models"
 
 	"net/http"
 )
