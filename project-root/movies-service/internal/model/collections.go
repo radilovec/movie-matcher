@@ -1,4 +1,4 @@
-package models
+package model
 
 type MovieCollectionType string
 
@@ -9,3 +9,12 @@ const (
 	Popular    MovieCollectionType = "popular"
 	Unique     MovieCollectionType = "unique"
 )
+
+func (m MovieCollectionType) IsValid() bool {
+	switch m {
+	case Upcoming, TopRated, NowPlaying, Popular:
+		return true
+	default:
+		return false
+	}
+}

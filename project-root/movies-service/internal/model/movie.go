@@ -1,4 +1,4 @@
-package models
+package model
 
 type Movie struct {
 	Adult            bool    `json:"adult"`
